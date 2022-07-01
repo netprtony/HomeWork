@@ -138,7 +138,31 @@ void menu(){
     printf("\n*0.Exit.                                  *");
     printf("\n*******************************************");
 }
-
+bool isLeaf(TNode* t){
+    if(!t) return false; 
+    if(t->left || t->right) return false;//là lá khi và chỉ khi không có nhánh con chỉ có nhánh cha.
+    return true;
+}
+bool deleteTNodeLeft(TNode* t, ItemType &x){
+    if(!t) return false; //Điều kiện xóa khi và chỉ nút trái của cây là lá.
+    TNode* p = t->left; 
+    if(!p) return false;
+    if(p->left || p->right) return false; //kiểm tra có phải lá không.
+    t->left = NULL; //ngắn kết nối giữ rễ và nhánh con cần xóa
+    x = p->data;// lưu giá trị
+    delete p;
+    return true;
+}
+bool deleteTNodeLeft(TNode* t, ItemType &x){
+    if(!t) return false; //Điều kiện xóa khi và chỉ nút phải của cây là lá.
+    TNode* p = t->right; 
+    if(!p) return false;
+    if(p->left || p->right) return false; //kiểm tra có phải lá không.
+    t->right = NULL; //ngắn kết nối giữ rễ và nhánh con cần xóa
+    x = p->data;// lưu giá trị
+    delete p;
+    return true;
+}
 void process(){
     int selectFunction;
     Btree bt;
@@ -150,15 +174,15 @@ void process(){
     do
     {
         menu();
-        printf("Selection : "); scanf("%d", &selectFunction);
+        printf("\nSelection : "); scanf("%d", &selectFunction);
         switch (selectFunction)
         {
-        case 1 : createArray(bt, a, n);
-                break;
-        case 2 : RLN(bt.Root);
+        case 1 :    createAuto(bt);  
+                    break;
+        case 2 : RNL(bt.Root);
                 break;
         case 3 : printf("X = "); scanf("%d", &x);
-                if(FindTNode(bt.Root,x)) printf("Node %d in tree.", x);
+                if(FindTNode(bt.Root, x)) printf("Node %d in tree.", x);
                 else printf("Node %d is not in tree");
                 break; 
         }
