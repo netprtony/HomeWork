@@ -120,7 +120,16 @@ TNode* FindTNode (TNode* root, ItemType x){
         else FindTNode(root->right, x); 
     return NULL;
 } 
-
+TNode* FindTNode2(TNode* root, ItemType x){
+    TNode* p = root;
+    while (p)
+    {
+        if(p->data == x) return p;
+        else if(p->data > x) p = p->left;
+        else p= p->right;
+    }
+    return NULL;
+}
 void menu(){
     printf("\n****************MENU***********************");
     printf("\n*1.Create Tree form array.                *");
