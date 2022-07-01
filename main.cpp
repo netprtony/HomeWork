@@ -38,7 +38,7 @@ bool insertLeft(TNode* &t, TNode* p){
     t->left = p;
     return true;
 }
-bool insertLeft(TNode* &t, TNode* p){
+bool insertRight(TNode* &t, TNode* p){
     if(!p||!t) return false;
     if(t->right) return false;
     t->right = p;
