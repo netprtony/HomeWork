@@ -153,7 +153,7 @@ bool deleteTNodeLeft(TNode* t, ItemType &x){
     delete p;
     return true;
 }
-bool deleteTNodeLeft(TNode* t, ItemType &x){
+bool deleteTNoderight(TNode* t, ItemType &x){
     if(!t) return false; //Điều kiện xóa khi và chỉ nút phải của cây là lá.
     TNode* p = t->right; 
     if(!p) return false;
