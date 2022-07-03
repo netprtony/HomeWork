@@ -146,6 +146,11 @@ bool isLeaf(TNode* t){
     if(t->left || t->right) return false;//là lá khi và chỉ khi không có nhánh con chỉ có nhánh cha.
     return true;
 }
+int countNodeLeaf(TNode* root){
+    if(!root) return 0;
+    if(!root->left && !root->right) return 1;
+    return countNodeLeaf(root->left) + countNodeLeaf(root->right);
+}
 bool deleteTNodeLeft(TNode* t, ItemType &x){
     if(!t) return false; //Điều kiện xóa khi và chỉ nút trái của cây là lá.
     TNode* p = t->left; 
@@ -156,7 +161,7 @@ bool deleteTNodeLeft(TNode* t, ItemType &x){
     delete p;
     return true;
 }
-bool deleteTNoderight(TNode* t, ItemType &x){
+bool deleteTNodeRight(TNode* t, ItemType &x){
     if(!t) return false; //Điều kiện xóa khi và chỉ nút phải của cây là lá.
     TNode* p = t->right; 
     if(!p) return false;
@@ -166,13 +171,38 @@ bool deleteTNoderight(TNode* t, ItemType &x){
     delete p;
     return true;
 }
+int countTNode(TNode* root){
+    if(!root) return 0;
+    return 1 + countTNode(root->right)+ countTNode(root->left);
+}
+int countTNodeHaveTwoChild(TNode* root){
+    if(!root) return 0;
+    if(!root->left || !root->right) return 0;
+    return countTNodeHaveTwoChild(root->left) + countTNodeHaveTwoChild(root->right) + 1;
+}
+int sumTNode(TNode* root){
+    if(!root) return 0;
+    return root->data + sumTNode(root->left) + sumTNode(root->right);
+}
+int highTree(TNode* root){
+    if(!root) return 0;
+    int hl = highTree(root->left);
+    int hr = highTree(root->right);
+    if(hl > hr) return hl + 1;
+    else return hr + 1; 
+}
 void menu(){
     printf("\n****************MENU***********************");
     printf("\n*1.Create Tree form array.                *");
     printf("\n*2.Create Tree random.                    *");
     printf("\n*3.Create Tree hand make.                 *");
-    printf("\n*4.Show NLR.                              *");
+    printf("\n*4.Show LRN.                              *");
     printf("\n*5.Find node any.                         *");
+    printf("\n*6.Count leaf.                            *");
+    printf("\n*7.Count node.                            *");
+    printf("\n*8.Count node have two child.             *");
+    printf("\n*9.Sum all node of tree.                  *");
+    printf("\n*10.Height of tree.                       *");
     printf("\n*0.Exit.                                  *");
     printf("\n*******************************************");
 }
@@ -181,8 +211,8 @@ void process(){
     Btree bt;
     TNode* p;
     ItemType x;
-    ItemType a[] = {10, 2, 5, 4, 65, 6, 3, 25, 6, 36, 4};
-    int n = 12;
+    ItemType a[] = {10, 2, 5, 4, 65, 6, 3, 25, 7, 36, 12};
+    int n = 11;
     initBtree(bt);
     do
     {
@@ -197,11 +227,21 @@ void process(){
                     break;
         case 3 :    createHandMake(bt, n);  
                     break;           
-        case 4 : RNL(bt.Root);
+        case 4 : LRN(bt.Root);
                 break;
         case 5 : printf("X = "); scanf("%d", &x);
-                if(FindTNode(bt.Root, x)!= NULL) printf("Node %d in tree.", x);
+                if(FindTNode2(bt.Root, x)!= NULL) printf("Node %d in tree.", x);
                 else printf("Node %d is not in tree");
+                break; 
+        case 6: printf("Amount leaf of tree: %d",countNodeLeaf(bt.Root));
+                break;
+        case 7:printf("Amount node of tree: %d",countTNode(bt.Root));
+                break;
+        case 8:printf("Amount node have two child of tree: %d",countTNodeHaveTwoChild(bt.Root));
+                break;  
+        case 9:printf("Sum all node of tree: %d",sumTNode(bt.Root));
+                break; 
+        case 10 :printf("High of tree : %d",highTree(bt.Root));
                 break; 
         }
         printf("\n--------------------------------");
