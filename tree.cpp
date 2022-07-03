@@ -177,19 +177,80 @@ int countTNode(TNode* root){
 }
 int countTNodeHaveTwoChild(TNode* root){
     if(!root) return 0;
-    if(!root->left || !root->right) return 0;
-    return countTNodeHaveTwoChild(root->left) + countTNodeHaveTwoChild(root->right) + 1;
+    int l = countTNodeHaveTwoChild(root->left);
+    int r = countTNodeHaveTwoChild(root->right);
+    return (root->left && root->right) ? 1+r+l : l+r; 
+}
+int countTNodeHaveOneChild(TNode* root){
+    if(!root) return 0;
+    int l = countTNodeHaveTwoChild(root->left);
+    int r = countTNodeHaveTwoChild(root->right);
+    return ((root->left && !root->right)||(!root->left && root->right)) ? 1+r+l : l+r;   
+}
+int countTNodeHaveChildIsLeaf(TNode* root){
+    if(!root) return 0;
+    int l = countTNodeHaveChildIsLeaf(root->left);
+    int r = countTNodeHaveChildIsLeaf(root->right);
+    return (isLeaf(root->left)||isLeaf(root->right)) ? 1+l+r : l+r;
 }
 int sumTNode(TNode* root){
-    if(!root) return 0;
-    return root->data + sumTNode(root->left) + sumTNode(root->right);
+    return root ? root->data + sumTNode(root->left) + sumTNode(root->right) : 0;
 }
 int highTree(TNode* root){
     if(!root) return 0;
     int hl = highTree(root->left);
     int hr = highTree(root->right);
-    if(hl > hr) return hl + 1;
-    else return hr + 1; 
+    return hl > hr ? hl+1 : 1+hr;
+}
+int countTNodeIsNoLeaf(TNode* root){
+    return countTNode(root) - countNodeLeaf(root);
+}
+int countTNodeMedium(TNode* root){
+    int n = countTNodeIsNoLeaf(root);
+    return (n != 0) ? n-1 : 0;
+}
+int TNodeMax(TNode* root){
+    TNode* p;
+    for (p = root; p->right; p = p->right);
+    return p->data;
+}
+void showTNodeOfLevelK(TNode* root, int k){
+    if(!root) return;
+    if(k==0) printf("%5d", root->data);
+    k--;
+    showTNodeOfLevelK(root->left, k); 
+    showTNodeOfLevelK(root->right, k);
+}
+void showTNodeIsLeafOfLevelK(TNode* root, int k){
+    if(!root) return;
+    if(k==0 && !root->left && !root->right) printf("%5d",root->data);
+    k--;
+    showTNodeIsLeafOfLevelK(root->left, k);
+    showTNodeIsLeafOfLevelK(root->right, k);
+}
+int countTNodeOfLevelK(TNode* root, int k){
+    if(!root) return 0;
+    if(k==0) return 1;
+    k--;
+    return countTNodeOfLevelK(root->left, k) + countTNodeOfLevelK(root->right, k);
+}
+int countTNodeIsLeafOfLevelK(TNode* root, int k){
+    if(!root) return 0;
+    if(k==0 && !root->left && !root->right) return 1;
+    k--;
+    return countTNodeIsLeafOfLevelK(root->left, k) +  countTNodeIsLeafOfLevelK(root->right, k);
+}
+int sumTNodeOfLevelK(TNode* root, int k){
+    if(!root) return 0;
+    if(k==0) return root->data;
+    k--;
+    return sumTNodeOfLevelK(root->left, k) + sumTNodeOfLevelK(root->right, k);
+}
+int sumTNodeIsLeafOfLevelK(TNode* root, int k){
+    if(!root) return 0;
+    if(k==0 && !root->left && !root->right) return root->data;
+    k--;
+    return sumTNodeIsLeafOfLevelK(root->left, k) + sumTNodeIsLeafOfLevelK(root->right, k);
 }
 void menu(){
     printf("\n****************MENU***********************");
@@ -203,6 +264,19 @@ void menu(){
     printf("\n*8.Count node have two child.             *");
     printf("\n*9.Sum all node of tree.                  *");
     printf("\n*10.Height of tree.                       *");
+    printf("\n*11.Count node have one child.            *");
+    printf("\n*12.Count node have child is leaf.        *");
+    printf("\n*13.Count node isn't leaf.                *");
+    printf("\n*14.Count node is medium.                 *");
+    printf("\n*15.Node max.                             *");
+    printf("\n*16.Show node of level k.                 *");
+    printf("\n*17.Show node is leaf of level k.         *");
+    printf("\n*18.Count node of level k.                *");
+    printf("\n*19.Count node is leaf of level k.        *");
+    printf("\n*20.Sum node of level k.                  *");
+    printf("\n*21.Sum node is leaf of level k.          *");
+    printf("\n*22.Min distance node x.                  *");
+    printf("\n*22.Max distance node x.                  *");
     printf("\n*0.Exit.                                  *");
     printf("\n*******************************************");
 }
@@ -212,7 +286,7 @@ void process(){
     TNode* p;
     ItemType x;
     ItemType a[] = {10, 2, 5, 4, 65, 6, 3, 25, 7, 36, 12};
-    int n = 11;
+    int n = 11, k;
     initBtree(bt);
     do
     {
@@ -233,16 +307,38 @@ void process(){
                 if(FindTNode2(bt.Root, x)!= NULL) printf("Node %d in tree.", x);
                 else printf("Node %d is not in tree");
                 break; 
-        case 6: printf("Amount leaf of tree: %d",countNodeLeaf(bt.Root));
+        case 6: printf("\nAmount leaf of tree: %d",countNodeLeaf(bt.Root));
                 break;
-        case 7:printf("Amount node of tree: %d",countTNode(bt.Root));
+        case 7:printf("\nAmount node of tree: %d",countTNode(bt.Root));
                 break;
-        case 8:printf("Amount node have two child of tree: %d",countTNodeHaveTwoChild(bt.Root));
+        case 8:printf("\nAmount node have two child of tree: %d",countTNodeHaveTwoChild(bt.Root));
                 break;  
-        case 9:printf("Sum all node of tree: %d",sumTNode(bt.Root));
+        case 9:printf("\nSum all node of tree: %d",sumTNode(bt.Root));
                 break; 
-        case 10 :printf("High of tree : %d",highTree(bt.Root));
+        case 10 :printf("\nHigh of tree : %d",highTree(bt.Root));
                 break; 
+        case 11:printf("\nAmount node have one child of tree: %d",countTNodeHaveOneChild(bt.Root));                
+                break; 
+        case 12:printf("\nAmount node have child is leaf of tree: %d",countTNodeHaveChildIsLeaf(bt.Root));                
+                break;
+        case 13:printf("\nAmount node isn't leaf of tree: %d",countTNodeIsNoLeaf(bt.Root));                
+                break;
+        case 14:printf("\nAmount node is medium of tree: %d",countTNodeMedium(bt.Root));                
+                break;
+        case 15:printf("\nNode max of tree: %d",TNodeMax(bt.Root));                
+                break;
+        case 16: printf("\nK = "); scanf("%d", &k); printf("\nNode of at level %d\n", k); showTNodeOfLevelK(bt.Root, k);
+                break;
+        case 17: printf("\nK = "); scanf("%d", &k); printf("\nNode is leaf of at level %d\n", k); showTNodeIsLeafOfLevelK(bt.Root, k);
+                break;
+        case 18: printf("\nK = "); scanf("%d", &k); printf("%d node at level %d",countTNodeOfLevelK(bt.Root, k), k);
+                break;
+        case 19: printf("\nK = "); scanf("%d", &k); printf("%d node is leaf at level %d",countTNodeIsLeafOfLevelK(bt.Root, k), k);
+                break;
+        case 20: printf("\nK = "); scanf("%d", &k); printf("%d sum node at level %d",sumTNodeOfLevelK(bt.Root, k), k);
+                break;
+        case 21: printf("\nK = "); scanf("%d", &k); printf("%d sum node is leaf at level %d",sumTNodeIsLeafOfLevelK(bt.Root, k), k);
+                break;
         }
         printf("\n--------------------------------");
     } while (selectFunction );
