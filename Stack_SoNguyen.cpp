@@ -129,7 +129,13 @@ bool isAllZero(Stack s) {
 	}
 	return true;
 }
-
+void popTwo(Stack& s, int &i, Item& x) {
+	for (int j = 1; j <= 2; j++)
+	{
+		pop(s, x);
+		i--;
+	}
+}
 void ReadBill(int n) {
 	if (!n) {
 		printf("Khong Dong"); return;
@@ -154,11 +160,7 @@ void ReadBill(int n) {
 			{
 			case 3: pop(s, x);
 				if (x == 0 && s.top->data == 0 && s.top->link->data == 0) {
-					for (int j = 0; j <= 1; j++)
-					{
-						pop(s, x);
-						i--;
-					}
+					popTwo(s, i, x);
 					break;
 				}
 				WordOfNumber(x);
@@ -166,63 +168,39 @@ void ReadBill(int n) {
 				break;
 			case 6:pop(s, x);
 				if (x == 0 && s.top->data == 0 && s.top->link->data == 0) {
-					for (int j = 0; j <= 1; j++)
-					{
-						pop(s, x);
-						i--;
-					}
+					popTwo(s, i, x);
 					break;
 				}
 				WordOfNumber(x);
 				if (s.top->data == 0 && s.top->link->data == 0) {
 					printf("Tram Nghin ");
-					for (int j = 0; j <= 1; j++)
-					{
-						pop(s, x);
-						i--;
-					}
+					popTwo(s, i, x);
 					break;
 				}
 				else printf("Tram ");
 				break;
 			case 9: pop(s, x);
 				if (x == 0 && s.top->data == 0 && s.top->link->data == 0) {
-					for (int j = 0; j <= 1; j++)
-					{
-						pop(s, x);
-						i--;
-					}
+					popTwo(s, i, x);
 					break;
 				}
 				WordOfNumber(x);
 				if (s.top->data == 0 && s.top->link->data == 0) {
 					printf("Tram Trieu ");
-					for (int j = 0; j <= 1; j++)
-					{
-						pop(s, x);
-						i--;
-					}
+					popTwo(s, i, x);
 					break;
 				} 
 				else printf("Tram ");
 				break;
 			case 12:pop(s, x);
 				if (x == 0 && s.top->data == 0 && s.top->link->data == 0) {
-					for (int j = 0; j <= 2; j++)
-					{
-						pop(s, x);
-						i--;
-					}
+					popTwo(s, i, x);
 					break;
 				}
 				WordOfNumber(x);
 				if (s.top->data == 0 && s.top->link->data == 0) {
 					printf("Tram Ty ");
-					for (int j = 0; j <= 1; j++)
-					{
-						pop(s, x);
-						i--;
-					}
+					popTwo(s, i, x);
 					break;
 				} 
 				else printf("Tram ");
@@ -235,9 +213,8 @@ void ReadBill(int n) {
 			switch (i)
 			{
 			case 2: pop(s, x);
-				if (x == 0);
-				else {
-					if(i == count) printf("Muoi ");
+				if (x != 0) {
+					if(x == 1) printf("Muoi ");
 					else {
 					WordOfNumber(x);
 					printf("Muoi ");
@@ -245,9 +222,8 @@ void ReadBill(int n) {
 				}
 				break;
 			case 5: pop(s, x);
-				if (x == 0);
-				else {
-					if (i == count) printf("Muoi ");
+				if (x != 0) {
+					if (x == 1) printf("Muoi ");
 					else {
 						WordOfNumber(x);
 						printf("Muoi ");
@@ -255,9 +231,8 @@ void ReadBill(int n) {
 				}
 				break;
 			case 8: pop(s, x);
-				if (x == 0);
-				else {
-					if (i == count) printf("Muoi ");
+				if (x != 0) {
+					if (x == 1) printf("Muoi ");
 					else {
 						WordOfNumber(x);
 						printf("Muoi ");
@@ -265,9 +240,8 @@ void ReadBill(int n) {
 				}
 				break;
 			case 11: pop(s, x);
-				if (x == 0);
-				else {
-					if (i == count) printf("Muoi ");
+				if (x != 0) {
+					if (x == 1) printf("Muoi ");
 					else {
 						WordOfNumber(x);
 						printf("Muoi ");
@@ -309,8 +283,11 @@ int main() {
 	//Stack_doiCoso(2805, 16);
 	//Stack_doiCoso(10, 7);
 	int n = 0;
-	printf("So Tien : "); scanf_s("%d", &n);
-	ReadBill(n); 
-	printf("Dong\n");
+	do
+	{
+		printf("So Tien : "); scanf_s("%d", &n);
+		ReadBill(n); 
+		printf("Dong\n");
+	} while (n != -1);
 	return 0;
 }
