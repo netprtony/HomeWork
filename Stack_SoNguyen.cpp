@@ -279,15 +279,148 @@ void ReadBill(int n) {
 		}
 	}
 }
+void RomanNumber_units(int x){
+	switch (x)
+	{
+	case 1:
+		printf("I");
+		break;
+	case 2:
+		printf("II");
+		break;
+	case 3:
+		printf("III");
+		break;
+	case 4:
+		printf("IV");
+		break;
+	case 5:
+		printf("V");
+		break;
+	case 6:
+		printf("VI");
+		break;	
+	case 7:
+		printf("VII");
+		break;
+	case 8:
+		printf("VIII");
+		break;
+	case 9:
+		printf("IX");
+		break;
+	}
+}
+void RomanNumber_dozen(int x){
+	switch (x)
+	{
+	case 1:
+		printf("X");
+		break;
+	case 2:
+		printf("XX");
+		break;
+	case 3:
+		printf("XXX");
+		break;
+	case 4:
+		printf("XL");
+		break;
+	case 5:
+		printf("L");
+		break;
+	case 6:
+		printf("LX");
+		break;	
+	case 7:
+		printf("LXX");
+		break;
+	case 8:
+		printf("LXXX");
+		break;
+	case 9:
+		printf("XC");
+		break;
+	}
+}
+void RomanNumber_hundreds(int x){
+	switch (x)
+	{
+	case 1:
+		printf("C");
+		break;
+	case 2:
+		printf("CC");
+		break;
+	case 3:
+		printf("CCC");
+		break;
+	case 4:
+		printf("CD");
+		break;
+	case 5:
+		printf("D");
+		break;
+	case 6:
+		printf("DC");
+		break;	
+	case 7:
+		printf("DCC");
+		break;
+	case 8:
+		printf("DCCC");
+		break;
+	case 9:
+		printf("CM");
+		break;
+	}
+}
+void NumberToRoman(int n ){
+	int count = 0;
+	int x = n;
+	Stack s;
+	initStack(s);
+	StackNode* p;
+	while (x) {
+		p = create(x % 10);
+		push(s, p);
+		count++;
+		x /= 10;
+	}
+	printf("\nRoman Number of %d is : ", n);
+	while(pop(s, x)){
+		switch (count)
+		{
+		case 1:
+			RomanNumber_units(x);
+			break;
+		case 2:
+			RomanNumber_dozen(x);
+			break;
+		case 3:
+			RomanNumber_hundreds(x);
+			break;	
+		}
+		count--;
+	}
+}
 int main() {
 	//Stack_doiCoso(2805, 16);
 	//Stack_doiCoso(10, 7);
 	int n = 0;
+	// do
+	// {
+	// 	printf("So Tien : "); scanf_s("%d", &n);
+	// 	ReadBill(n); 
+	// 	printf("Dong\n");
+	// } while (n != -1);
 	do
 	{
-		printf("So Tien : "); scanf_s("%d", &n);
-		ReadBill(n); 
-		printf("Dong\n");
+		do
+		{
+			printf("\nSo : "); scanf_s("%d", &n);
+			NumberToRoman(n);
+		} while (n >= 1000 && n <= 0);
 	} while (n != -1);
 	return 0;
 }
