@@ -67,6 +67,7 @@ bool checkDauNgoac(char s[]){
 			push(st, p);
 		}
 		else {
+			
 			if (!pop(st, x)) return false;
 			if (s[i] == '{' && x != '}') return false;
 			else if (s[i] == '(' && x != ')') return false;
@@ -134,8 +135,51 @@ void InfixToPostfix(char s[]){
 		i++;
 	}
 }
+void number(char x, int &n) {
+	switch (x)
+	{
+	case 'I':  n = 1;
+		break;
+	case 'II':  n = 2;
+		break;
+	case 'III': n = 3;
+		break;
+	case 'V':  n = 5;
+		break;
+	case 'X':  n = 10;
+		break;
+	case 'L':  n = 50;
+		break;
+	case 'C':  n = 100;
+		break;
+	case 'D':  n = 500;
+		break;
+	case 'M':  n = 1000;
+		break;
+	}
+}
+void RomanNumberToDecimalNumber(char str[]) {
+	Stack s;
+	int res = 0, n = 0 ,temp = 0;
+	initStack(s);
+	char x;
+	StackNode* p;
+	for (int i = 0; i < strlen(str); i++)
+	{
+		p = create(str[i]);
+		push(s, p);
+	}
+	while (pop(s, x))
+	{
+		number(x, n);
+		if (n < temp) res -= n;
+		else res += n;
+		temp = n;
+	}
+	printf("Number roman %s is number : %d",str, res);
+}
 int main(){
-	char s[] = "3*4+(2+5)/2)";
-	InfixToPostfix(s);
+	char s[] = "((){[()]})";
+	checkDauNgoac(s);
 	return 0;
 }

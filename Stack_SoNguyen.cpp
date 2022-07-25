@@ -416,11 +416,8 @@ int main() {
 	// } while (n != -1);
 	do
 	{
-		do
-		{
 			printf("\nSo : "); scanf_s("%d", &n);
 			NumberToRoman(n);
-		} while (n >= 1000 && n <= 0);
 	} while (n != -1);
 	return 0;
 }
