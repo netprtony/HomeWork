@@ -254,30 +254,28 @@ int sumTNodeIsLeafOfLevelK(TNode* root, int k){
 }
 void menu(){
     printf("\n****************MENU***********************");
-    printf("\n*1.Create Tree form array.                *");
-    printf("\n*2.Create Tree random.                    *");
-    printf("\n*3.Create Tree hand make.                 *");
-    printf("\n*4.Show LRN.                              *");
-    printf("\n*5.Find node any.                         *");
-    printf("\n*6.Count leaf.                            *");
-    printf("\n*7.Count node.                            *");
-    printf("\n*8.Count node have two child.             *");
-    printf("\n*9.Sum all node of tree.                  *");
-    printf("\n*10.Height of tree.                       *");
-    printf("\n*11.Count node have one child.            *");
-    printf("\n*12.Count node have child is leaf.        *");
-    printf("\n*13.Count node isn't leaf.                *");
-    printf("\n*14.Count node is medium.                 *");
-    printf("\n*15.Node max.                             *");
-    printf("\n*16.Show node of level k.                 *");
-    printf("\n*17.Show node is leaf of level k.         *");
-    printf("\n*18.Count node of level k.                *");
-    printf("\n*19.Count node is leaf of level k.        *");
-    printf("\n*20.Sum node of level k.                  *");
-    printf("\n*21.Sum node is leaf of level k.          *");
-    printf("\n*22.Min distance node x.                  *");
-    printf("\n*22.Max distance node x.                  *");
-    printf("\n*0.Exit.                                  *");
+    printf("\n* 1_Create Tree form array.                *");
+    printf("\n* 2_Create Tree random.                    *");
+    printf("\n* 3_Create Tree hand make.                 *");
+    printf("\n* 4_Show LRN.                              *");
+    printf("\n* 5_Find node any.                         *");
+    printf("\n* 6_Count leaf.                            *");
+    printf("\n* 7_Count node.                            *");
+    printf("\n* 8_Count node have two child.             *");
+    printf("\n* 9_Sum all node of tree.                  *");
+    printf("\n* 10_Height of tree.                       *");
+    printf("\n* 11_Count node have one child.            *");
+    printf("\n* 12_Count node have child is leaf.        *");
+    printf("\n* 13_Count node isn't leaf.                *");
+    printf("\n* 14_Count node is medium.                 *");
+    printf("\n* 15_Node max.                             *");
+    printf("\n* 16_Show node of level k.                 *");
+    printf("\n* 17_Show node is leaf of level k.         *");
+    printf("\n* 18_Count node of level k.                *");
+    printf("\n* 19_Count node is leaf of level k.        *");
+    printf("\n* 20_Sum node of level k.                  *");
+    printf("\n* 21_Sum node is leaf of level k.          *");
+    printf("\n* 0_Exit.                                  *");
     printf("\n*******************************************");
 }
 void process(){
@@ -305,7 +303,7 @@ void process(){
                 break;
         case 5 : printf("X = "); scanf("%d", &x);
                 if(FindTNode2(bt.Root, x)!= NULL) printf("Node %d in tree.", x);
-                else printf("Node %d is not in tree");
+                else printf("Node %d is not in tree", x);
                 break; 
         case 6: printf("\nAmount leaf of tree: %d",countNodeLeaf(bt.Root));
                 break;
