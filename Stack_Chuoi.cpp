@@ -176,10 +176,34 @@ void RomanNumberToDecimalNumber(char str[]) {
 		else res += n;
 		temp = n;
 	}
-	printf("Number roman %s is number : %d",str, res);
+	printf("Number roman %s is number : %d", str, res);
+}
+void SimplifyPath(char* str){
+	Stack s;
+	initStack(s);
+	char x = NULL, before = NULL;
+	StackNode* p;
+	for (int i = strlen(str); i >= 0; i--)
+	{
+		p = create(str[i]);
+		push(s, p);
+	}
+	while (pop(s, x))
+	{
+		if(x == '.') continue;
+		if(top(s) == '\0' && x == '/')  return;
+		if(x == '/' ) {
+			if(before == '/') pop(s, x);
+			printf("%c", x);
+			before = x;
+		} else {
+			printf("%c", x);
+			before = x;
+		}
+	}
 }
 int main(){
-	char s[] = "((){[()]})";
-	checkDauNgoac(s);
+	char s[] = "/home//foo/";
+	SimplifyPath(s);
 	return 0;
 }
