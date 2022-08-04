@@ -61,6 +61,37 @@ void createSlist(Slist& sl) {
         if (!res) printf("Can not add student!");
     }
 }
+bool deleteNode(Slist &sl, SNode* node, Itemtype &x) {
+    if(isEmpty(sl)) return false;
+	if(node == sl.tail){
+		x = node->val;
+		sl.tail = node->previous;
+		sl.tail->next = NULL;
+		delete node;
+		return true;
+	}else {
+		x = node->val;
+		node->previous->next = node->next;
+		node->next->previous = node->previous;
+		if(node == sl.head) sl.head = node->next;
+		delete node;
+		return true;
+	}
+}
+void oddEvenList(Slist &sl){
+	Itemtype x;
+	for (SNode* p = sl.tail; p ; p = p->previous)
+	{
+		if(p->val % 2 == 0){
+			if(!deleteNode(sl , p, x)) printf("Node NULL!");
+			insert_tail(sl , create(x));
+		} 
+	}
+	while (sl.tail != NULL)
+	{
+		sl.tail = sl.tail->next;
+	}
+}
 // output linked list
 void showLinkedListElement(const Slist sl){
 	const SNode* p = sl.head;
@@ -100,10 +131,35 @@ void rotateRight(Slist &sl, int k){
 		sl.head = p; //cap nhat head gan p
 	showLinkedListElement(sl);
 }
+void swap(int &x, int &y){
+	int temp = x;
+	x = y;
+	y = temp;
+}
+void reverseBetween(Slist sl, int left, int right){
+	int count = 0;
+	SNode* l = sl.head; 
+	SNode* r = sl.head;
+	for (int i = 1; i < left; i++)
+	{
+		l = l->next;
+	}
+	for (int i = 1; i < right; i++)
+	{
+		r = r->next;
+	}
+	while (r != l)
+	{
+		swap(r->val, l->val);
+		r = r->previous;
+		l = l->next;
+	}
+	showLinkedListElement(sl);
+}
 int main() {
 	Slist sl;
 	createSlist(sl);
+	oddEvenList(sl);
 	showLinkedListElement(sl);
-	rotateRight(sl, 7);
 	return 0;
 }

@@ -252,8 +252,14 @@ int sumTNodeIsLeafOfLevelK(TNode* root, int k){
     k--;
     return sumTNodeIsLeafOfLevelK(root->left, k) + sumTNodeIsLeafOfLevelK(root->right, k);
 }
+bool isSameTree(TNode* p, TNode* q){
+    if(p->data != q->data) return false;
+        isSameTree(p->left, q->left);
+        isSameTree(p->right, q->right);
+    return true;
+}
 void menu(){
-    printf("\n****************MENU***********************");
+    printf("\n****************MENU************************");
     printf("\n* 1_Create Tree form array.                *");
     printf("\n* 2_Create Tree random.                    *");
     printf("\n* 3_Create Tree hand make.                 *");
@@ -275,17 +281,19 @@ void menu(){
     printf("\n* 19_Count node is leaf of level k.        *");
     printf("\n* 20_Sum node of level k.                  *");
     printf("\n* 21_Sum node is leaf of level k.          *");
+    printf("\n* 21_Check is same tree.                   *");
     printf("\n* 0_Exit.                                  *");
     printf("\n*******************************************");
 }
 void process(){
     int selectFunction;
-    Btree bt;
+    Btree bt, bt1;
     TNode* p;
     ItemType x;
     ItemType a[] = {10, 2, 5, 4, 65, 6, 3, 25, 7, 36, 12};
     int n = 11, k;
     initBtree(bt);
+    initBtree(bt1);
     do
     {
         menu();
@@ -336,6 +344,8 @@ void process(){
         case 20: printf("\nK = "); scanf("%d", &k); printf("%d sum node at level %d",sumTNodeOfLevelK(bt.Root, k), k);
                 break;
         case 21: printf("\nK = "); scanf("%d", &k); printf("%d sum node is leaf at level %d",sumTNodeIsLeafOfLevelK(bt.Root, k), k);
+                break;
+        case 22 : createHandMake(bt, n);  createHandMake(bt1, n);  isSameTree(bt.Root, bt1.Root);
                 break;
         }
         printf("\n--------------------------------");
